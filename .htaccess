@@ -2,6 +2,3 @@ AddDefaultCharset Off
 <IfModule dir_module>
     DirectoryIndex index.php
 </IfModule>
-
-
-ErrorDocument 404 /views/404.php

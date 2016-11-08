@@ -18,11 +18,7 @@ abstract class AbstractModel {
     public static function get_one( $id ) {
         $db = new Database;
         $query = "SELECT * FROM " .  static::$table . " WHERE id=".$id;
-        $result = $db->get_result($query, static::$class)[0];
-        if (!$result) {
-            return false;
-        }
-        return $result;
+        return $db->get_result($query, static::$class)[0];
     }
 
 

@@ -1,21 +1,25 @@
 <?php
 
-class GalleryController {
+class GalleryController  {
 
     public function actionAll () {
 
-        $images = Gallery::get_all();
-        include __DIR__ . '/../views/gallery/all.php';
+        $items = Gallery::get_all();
+        $view = new View;
+        $view->images = $items;
+        $view->display('gallery/all.php');
 
     }
 
     public function actionOne() {
 
-        if ( $image = Gallery::get_one( $_GET['id'] )) {
-            $image->increment_view();
-            include_once __DIR__.'/../views/gallery/single.php';
+        $view = new View;
+        if ( $item = Gallery::get_one( $_GET['id'] )) {
+            $item->increment_view();
+            $view->image = $item;
+            $view->display('gallery/single.php');
         }  else {
-            include __DIR__ . '/../views/404.php';
+            $view->display('404.php');
         }
 
     }
@@ -45,8 +49,8 @@ class GalleryController {
             Gallery::delete_image( $_GET['id']);
 
         } else {
-
-            include __DIR__.'/../views/404.php';
+            $view = new View;
+            $view->display('404.php');
 
         }
 
