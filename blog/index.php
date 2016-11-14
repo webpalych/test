@@ -1,8 +1,8 @@
 <?php
 
-require_once __DIR__.'/load.php';
+require_once __DIR__ . '/load.php';
 
-$ctrl = isset($_GET['ctrl']) ? $_GET['ctrl'] : 'Gallery';
+$ctrl = isset($_GET['ctrl']) ? $_GET['ctrl'] : 'Articles';
 $action = isset($_GET['action']) ? $_GET['action'] : 'All';
 
 $controller_class_name = $ctrl .'Controller';

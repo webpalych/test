@@ -42,7 +42,7 @@ class Gallery extends AbstractModel  {
             move_uploaded_file($tmp_name, ABSPATH.$dir.'/'.$file_name);
             $query = "INSERT INTO ".self::$table."(name,path) VALUES('".$name."','".$dir."/".$file_name."')";
             if ($db->query_exec($query)){
-                header('Location: /?result=uploaded');
+                header('Location: /gallery/?result=uploaded');
                 return true;
             }
             else {
@@ -66,7 +66,7 @@ class Gallery extends AbstractModel  {
         $query = "DELETE FROM ".self::$table." WHERE id=".$id;
         $db = new Database;
         if ($db->query_exec($query) && unlink($file_path)){
-            header('Location: /index.php/?result=deleted');
+            header('Location: /gallery/?result=deleted');
             return true;
         }
         else {

@@ -35,15 +35,15 @@ foreach ($images as $image) : ?>
         <h3><?php echo $image->name;?></h3>
         <span>Просмотров: <?php echo $image->views;?></span>
         <br/>
-        <a href="<?php echo SITE_ADDRESS . '/?ctrl=Gallery&action=One&id=' . $image->id; ?>">
-            <img src="<?php echo $image->path;?>" alt="<?php echo $image->name;?>">
+        <a href="<?php echo SITE_ADDRESS . '/gallery/?ctrl=Gallery&action=One&id=' . $image->id; ?>">
+            <img src="<?php echo '/gallery' . $image->path;?>" alt="<?php echo $image->name;?>">
         </a>
         <br/>
-        <a href="<?php echo SITE_ADDRESS . '/?ctrl=Gallery&action=Delete&id=' . $image->id; ?>">Удалить</a>
+        <a href="<?php echo SITE_ADDRESS . '/gallery/?ctrl=Gallery&action=Delete&id=' . $image->id; ?>">Удалить</a>
     </figure>
 <?php endforeach; ?>
 
-<form action="/?ctrl=Gallery&action=Save" method="post" enctype="multipart/form-data">
+<form action="/gallery/?ctrl=Gallery&action=Save" method="post" enctype="multipart/form-data">
     <p>Выберите файл: </p>
     <input type="file" name="file" size="20" required>
     <p>Название изображения:</p>

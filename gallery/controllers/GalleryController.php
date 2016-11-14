@@ -15,11 +15,15 @@ class GalleryController  {
 
         $view = new View;
         if ( $item = Gallery::get_one( $_GET['id'] )) {
+
             $item->increment_view();
             $view->image = $item;
             $view->display('gallery/single.php');
-        }  else {
+
+        } else {
+
             $view->display('404.php');
+
         }
 
     }
@@ -29,9 +33,13 @@ class GalleryController  {
         if ($_FILES['file']) {
 
             if (!empty($_POST['filename'])) {
+
                 Gallery::save_image($_FILES['file'], '/img', $_POST['filename']);
+
             } else {
+
                 Gallery::save_image($_FILES['file'], '/img');
+
             }
 
         } else {
@@ -49,6 +57,7 @@ class GalleryController  {
             Gallery::delete_image( $_GET['id']);
 
         } else {
+
             $view = new View;
             $view->display('404.php');
 
