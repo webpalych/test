@@ -37,5 +37,11 @@ class Database {
 
     }
 
+    public function last_insert_id() {
+
+        return $this->dbh->lastInsertId();
+
+    }
+
 
 } 

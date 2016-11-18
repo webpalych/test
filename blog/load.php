@@ -1,5 +1,10 @@
 <?php
-function __autoload($class) {
+
+
+require __DIR__.'/vendor/autoload.php';
+
+function my_autoload($class) {
+
 
     if (file_exists(__DIR__.'/controllers/'. $class .'.php')) {
         require_once __DIR__.'/controllers/'. $class .'.php';
@@ -12,3 +17,4 @@ function __autoload($class) {
     }
 
 }
+spl_autoload_register('my_autoload');

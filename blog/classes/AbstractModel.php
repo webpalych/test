@@ -15,6 +15,10 @@ abstract class AbstractModel {
         return $this->data[$k];
     }
 
+    public function __isset($k) {
+        return isset($this->data[$k]);
+    }
+
     //Получение всех записей из БД
     public static function get_all() {
         $class = get_called_class();
@@ -45,6 +49,16 @@ abstract class AbstractModel {
 
     }
 
+    public static function delete( $id ) {
+
+        $db = new Database;
+
+        $query = "DELETE FROM " .  static::$table . " WHERE id=:id";
+
+        return $db->execute($query, [':id' => $id]);
+
+    }
+
     protected function insert() {
 
         $cols = array_keys($this->data);
@@ -58,36 +72,34 @@ abstract class AbstractModel {
          VALUES
          (". implode(', ', array_keys($data)) .")";
 
-       if ($db->execute($query, $data)) {
-           $added_article = self::get_one_by_field('title', $this->title);
+        $db->execute($query, $data);
 
-           $this->id = $added_article->id;
-       }
+        $this->id = $db->last_insert_id();
 
     }
 
     protected function update() {
 
-        $cols = array_keys($this->data);
+        $cols = [];
         $data = [];
-        $string = [];
-        foreach ($cols as $col) {
-            $data[':'.$col] = $this->data[$col];
-            $string[$col] = $col .'=:'. $col;
-        }
+        foreach ($this->data as $k => $v) {
+            $data[':'.$k] = $v;
+            if ( 'id' == $k ){
+                continue;
+            }
+            $cols[] = $k . '=:' . $k;
 
+        }
         $db = new Database;
-        $query = "UPDATE " .  static::$table . " SET " . implode(', ', $string) . " WHERE id=". $this->id;
+        $query = "UPDATE " .  static::$table . " SET " . implode(', ', $cols) . " WHERE id=:id";
 
         return $db->execute($query, $data);
-
-
 
     }
 
     public function save() {
 
-        if ($this->id) {
+        if (isset($this->id)) {
             $this->update();
         } else {
             $this->insert();
@@ -95,13 +107,4 @@ abstract class AbstractModel {
 
     }
 
-    public static function delete( $id ) {
-
-        $db = new Database;
-
-        $query = "DELETE FROM " .  static::$table . " WHERE id=:id";
-
-        return $db->execute($query, [':id' => $id]);
-
-    }
 } 
