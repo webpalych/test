@@ -5,6 +5,10 @@
     <title>Консоль</title>
 </head>
 <body>
+<p>
+    Привет, <?php echo $user_name;?>!
+    <a href="/blog/admin/?ctrl=Admin&action=Logout">Выйти</a>
+</p>
 <h1>Все Записи</h1>
 <?php if($_GET['result'] == 'deleted') {
     echo 'Запись удалена!';

@@ -5,6 +5,11 @@
     <title>Добавить новость</title>
 </head>
 <body>
+<p>
+    Привет, <?php echo $user_name;?>!
+    <a href="/blog/admin/?ctrl=Admin&action=Logout">Выйти</a>
+</p>
+
 <form method="post" action="/blog/admin/?ctrl=Admin&action=Update<?php echo $article->id ? '&id='.$article->id : '' ?>">
     <p>Название</p>
     <input type="text" name="articleTitle" value="<?php echo $article->title ? $article->title : ''?>"/>
